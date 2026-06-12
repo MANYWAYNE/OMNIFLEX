@@ -1,6 +1,5 @@
-<img width="1280" height="720" alt="COVER_04" src="https://github.com/user-attachments/assets/3873069f-64a2-4c7d-9cb3-0400681bf55c" />
 # Omniflex Specialized AI Environment
-
+<img width="1280" height="720" alt="COVER_04" src="https://github.com/user-attachments/assets/3873069f-64a2-4c7d-9cb3-0400681bf55c" />
 A collection of specialized custom nodes for ComfyUI focused on enhanced adaptive sampling, intelligent latent architecture, model optimization, and prompt token analysis.
 
 ## Features

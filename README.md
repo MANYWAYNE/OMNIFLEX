@@ -45,6 +45,6 @@ Advanced sampling nodes with adaptive procedural noise injection for enhanced te
 
 ### Procedural Noise Generation
 The Omniflex environment utilizes a multi-octave trigonometric noise formulation instead of simple raw mathematical randomization. This delivers highly structural, organic pattern designs that mirror real-world grain and texture without altering core prompt prompt-adherence or destroying color balance.
-<a href="[https://t.me/omniflexinfo">
-<img width="3440" height="924" alt="START" src="https://github.com/user-attachments/assets/79a549a3-788d-4a73-9f60-854ffd5ef570" />
-</a>
+
+[<img width="3440" height="924" alt="START" src="https://github.com/user-attachments/assets/79a549a3-788d-4a73-9f60-854ffd5ef570" />](https://t.me/omniflexinfo)
+

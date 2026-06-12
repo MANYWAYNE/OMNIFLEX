@@ -40,7 +40,7 @@ class OmniflexAspectArchitect:
                 ], {"default": "1024x1024 (1.05MP) - 1:1"}),
                 "init_mode": (["zeros", "gaussian_noise", "uniform_noise", "vae_sample"], {"default": "zeros"}),
                 "batch_size": ("INT", {"default": 1, "min": 1, "max": 64}),
-            }, 
+            },
             "optional": {
                 "vae": ("VAE",),
                 "optional_image": ("IMAGE",),
@@ -53,25 +53,24 @@ class OmniflexAspectArchitect:
     CATEGORY = "Omniflex/Latent"
 
     def execute(self, resolution, init_mode, batch_size, vae=None, optional_image=None):
-        # Автоматический парсинг строки
-        res_part = resolution.split(" ")[0]
-        w, h = map(int, res_part.split("x"))
+        res_str = resolution.split(" ")[0]
+        w, h = map(int, res_str.split("x"))
 
         latent_w = w // 8
         latent_h = h // 8
         
         if init_mode == "vae_sample" and vae is not None and optional_image is not None:
-            latent = vae.encode(optional_image[:,:,:,:3])
-            return ({"samples": latent}, w, h)
+            samples = vae.encode(optional_image[:,:,:,:3])
+            return ({"samples": samples}, w, h)
             
         elif init_mode == "gaussian_noise":
-            samples = torch.randn([batch_size, 4, latent_h, latent_w], device=self.device)
+            samples = torch.randn([batch_size, 16, latent_h, latent_w], device=self.device)
             return ({"samples": samples}, w, h)
             
         elif init_mode == "uniform_noise":
-            samples = torch.rand([batch_size, 4, latent_h, latent_w], device=self.device) * 2.0 - 1.0
+            samples = torch.rand([batch_size, 16, latent_h, latent_w], device=self.device) * 2.0 - 1.0
             return ({"samples": samples}, w, h)
 
         else:
-            samples = torch.zeros([batch_size, 4, latent_h, latent_w], device=self.device)
+            samples = torch.zeros([batch_size, 16, latent_h, latent_w], device=self.device)
             return ({"samples": samples}, w, h)

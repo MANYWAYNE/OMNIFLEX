@@ -35,7 +35,7 @@ class OmniflexAspectArchitect:
         
         if init_mode == "vae_sample" and vae is not None and optional_image is not None:
             latent = vae.encode(optional_image[:,:,:,:3])
-            return (latent, w, h)
+            return ({"samples": latent["samples"]}, w, h)
             
         elif init_mode == "gaussian_noise":
             samples = torch.randn([batch_size, 4, latent_h, latent_w], device=self.device)

@@ -58,7 +58,7 @@ class OmniflexProSampler:
         return boosted_noise * total_strength
 
     def sample(self, model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise, 
-               base_noise_strength, shadow_boost, highlight_boost, frequency_mix, adaptive_timestep, noise_seed):
+               base_noise_strength, shadow_boost, highlight_boost, frequency_mix, adaptive_timestep, noise_seed, **kwargs):
         
         latent = latent_image.copy()
         x = latent["samples"]
@@ -85,4 +85,10 @@ class OmniflexProSamplerDPM(OmniflexProSampler):
             "s_noise": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 2.0, "step": 0.1}),
         })
         return types
+    
     CATEGORY = "Omniflex/Sampling"
+
+    def sample(self, model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise, 
+               base_noise_strength, shadow_boost, highlight_boost, frequency_mix, adaptive_timestep, noise_seed, eta=1.0, s_noise=1.0):
+        return super().sample(model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise, 
+                             base_noise_strength, shadow_boost, highlight_boost, frequency_mix, adaptive_timestep, noise_seed)

@@ -2,7 +2,7 @@ import math
 import comfy.utils
 import torch
 import numpy as np
-from PIL import Image, ImageChops
+from PIL import Image
 
 class OmniflexHighResDetailer:
     @classmethod
@@ -26,9 +26,10 @@ class OmniflexHighResDetailer:
     CATEGORY = "Omniflex/Latent"
 
     def tensor_to_pil(self, tensor_image):
-        tensor_image = tensor_image.squeeze(0)
-        pil_image = Image.fromarray((tensor_image.cpu().numpy() * 255).astype(np.uint8))
-        return pil_image
+        if len(tensor_image.shape) == 4:
+            tensor_image = tensor_image[0]
+        arr = (tensor_image.cpu().numpy() * 255).astype(np.uint8)
+        return Image.fromarray(arr)
 
     def pil_to_tensor(self, pil_image):
         return torch.from_numpy(np.array(pil_image).astype(np.float32) / 255).unsqueeze(0)
@@ -50,30 +51,21 @@ class OmniflexHighResDetailer:
                         np.sqrt(base) * (2 * noise - 1) + (2 * base) * (1 - noise))
         
         result = result * (opacity / 100.0) + base * (1 - opacity / 100.0)
-        
         result = (np.clip(result, 0, 1) * 255).astype(np.uint8)
-        blended_image = Image.fromarray(result)
         
         if mask is not None:
-            mask_pil = self.tensor_to_pil(mask).convert('L')
-            mask_resized = mask_pil.resize(blended_image.size)
-            mask_array = np.array(mask_resized, dtype=np.float32) / 255.0
+            mask_pil = self.tensor_to_pil(mask).convert('L').resize(base_image.size)
+            mask_array = np.array(mask_pil, dtype=np.float32) / 255.0
             base_array = np.array(base_image)
             result_array = result * mask_array[..., None] + base_array * (1 - mask_array[..., None])
-            blended_image = Image.fromarray(result_array.astype(np.uint8))
+            return Image.fromarray(result_array.astype(np.uint8))
             
-        return blended_image
+        return Image.fromarray(result)
 
     def scale_and_encode(self, image, vae, upscale_method, target_resolution, noise_scale=0.40, blend_opacity=20, mask=None):
         try:
             if image is None or vae is None:
                 raise ValueError("Image and VAE must be provided")
-                
-            if noise_scale < 0 or noise_scale > 1:
-                raise ValueError("Noise scale must be between 0 and 1")
-                
-            if blend_opacity < 0 or blend_opacity > 100:
-                raise ValueError("Blend opacity must be between 0 and 100")
             
             _, original_height, original_width, _ = image.shape
             ratio = original_width / original_height
@@ -109,8 +101,8 @@ class OmniflexHighResDetailer:
             blended_tensor = self.pil_to_tensor(blended_image)
 
             encoded = vae.encode(blended_tensor[:, :, :, :3])
-            return ({"samples": encoded},)
+            return ({"samples": encoded["samples"]},)
             
         except Exception as e:
             print(f"Error in OmniflexHighResDetailer: {str(e)}")
-            return ({"samples": vae.encode(image[:, :, :, :3])},)
+            return ({"samples": vae.encode(image[:, :, :, :3])["samples"]},)

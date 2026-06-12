@@ -1,8 +1,8 @@
-from .soul_samplers import OmniflexProSampler, OmniflexProSamplerAdvanced, OmniflexProSamplerDPM
-from .latent_size_picker import OmniflexAspectArchitect
-from .model_sampling import OmniflexScaleEqualizer
-from .highresfix_scaler import OmniflexHighResDetailer
-from .token_counter import OmniflexTokenCounter
+from .nodes.OmniflexProSampler import OmniflexProSampler, OmniflexProSamplerAdvanced, OmniflexProSamplerDPM
+from .nodes.OmniflexAspectArchitect import OmniflexAspectArchitect
+from .nodes.OmniflexScaleEqualizer import OmniflexScaleEqualizer
+from .nodes.OmniflexHighResDetailer import OmniflexHighResDetailer
+from .nodes.OmniflexTokenCounter import OmniflexTokenCounter
 
 NODE_CLASS_MAPPINGS = {
     "OmniflexProSampler": OmniflexProSampler,

@@ -14,6 +14,8 @@ Advanced sampling nodes with adaptive procedural noise injection for enhanced te
 ### 📐 Latent Architecture
 * **Omniflex Aspect Architect**: Advanced latent tensor initialization environment. Features multiple preprocessing configuration modes (including zeros, uniform noise, gaussian noise, and direct VAE encoding) coupled with aspect-ratio optimized resolution presets.
 
+* **Omniflex Aspect Architect (Mini)**: Streamlined architecture optimized for Z-image pipelines. Features a specialized lightweight resolution preset list and minimal computational overhead for faster iteration while maintaining structural fidelity.
+
 ### 🧠 Model Optimization
 * **Omniflex Scale Equalizer**: Dynamically adjusts model sampling schedules and shift parameters based on generation dimensions, preventing quality degradation and artifacts when scaling across non-standard aspect ratios and extreme resolutions.
 

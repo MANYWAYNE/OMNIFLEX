@@ -1,5 +1,5 @@
 # Omniflex Specialized AI Environment
-
+[<img width="1280" height="720" alt="COVER_04" src="https://github.com/user-attachments/assets/3873069f-64a2-4c7d-9cb3-0400681bf55c" />](https://t.me/omniflexinfo)
 A collection of specialized custom nodes for ComfyUI focused on enhanced adaptive sampling, intelligent latent architecture, model optimization, and prompt token analysis.
 
 ## Features
@@ -45,3 +45,6 @@ Advanced sampling nodes with adaptive procedural noise injection for enhanced te
 
 ### Procedural Noise Generation
 The Omniflex environment utilizes a multi-octave trigonometric noise formulation instead of simple raw mathematical randomization. This delivers highly structural, organic pattern designs that mirror real-world grain and texture without altering core prompt prompt-adherence or destroying color balance.
+
+[<img width="3440" height="924" alt="START" src="https://github.com/user-attachments/assets/79a549a3-788d-4a73-9f60-854ffd5ef570" />](https://t.me/omniflexinfo)
+

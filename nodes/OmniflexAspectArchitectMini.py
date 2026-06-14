@@ -12,17 +12,17 @@ class OmniflexAspectArchitectMini:
         return {
             "required": {
                 "resolution": ([
-                    "--- Horizontal ---",
-                    "576x416 (0.24MP) - 18:13",
-                    "288x208 (0.06MP) - 18:13",
-                    "144x112 (0.02MP) - 9:7",
-                    "80x64 (0.01MP) - 5:4",
                     "--- Vertical ---",
-                    "416x576 (0.24MP) - 13:18",
-                    "208x288 (0.06MP) - 13:18",
-                    "112x144 (0.02MP) - 7:9",
-                    "64x80 (0.01MP) - 4:5"
-                ], {"default": "416x576 (0.24MP) - 13:18"}),
+                    "416x576",
+                    "208x288",
+                    "112x144",
+                    "64x80",
+                    "--- Horizontal ---",
+                    "576x416",
+                    "288x208",
+                    "144x112",
+                    "80x64",
+                ], {"default": "416x576"}),
                 "batch_size": ("INT", {"default": 1, "min": 1, "max": 4096}),
                 "width_override": ("INT", {"default": 0, "min": 0, "max": MAX_RESOLUTION, "step": 8}),
                 "height_override": ("INT", {"default": 0, "min": 0, "max": MAX_RESOLUTION, "step": 8}),
@@ -44,9 +44,9 @@ class OmniflexAspectArchitectMini:
                 width_override=0, height_override=0, vae=None, seed=0):
         
         if "---" in resolution:
-            resolution = "416x576 (0.24MP) - 13:18"
+            resolution = "416x576"
             
-        width_str, height_str = resolution.split(" ")[0].split("x")
+        width_str, height_str = resolution.split("x")
         width = width_override if width_override > 0 else int(width_str)
         height = height_override if height_override > 0 else int(height_str)
         
